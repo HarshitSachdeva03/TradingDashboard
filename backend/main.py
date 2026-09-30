@@ -33,5 +33,10 @@ def ping():
     return {"message": f"pong"}
 
 @app.get("/trades")
-def list_trades(session: Session = Depends(get_session)):    
-    return session.exec(select(Trade).order_by(Trade.ts.desc()).limit(50)).all()    
+def list_trades(symbol:str|None = None, trader:str|None = None, session: Session = Depends(get_session)):    
+    statement = select(Trade)
+    if symbol:
+        statement = statement.where(Trade.symbol == symbol)
+    if trader:
+        statement = statement.where(Trade.trader_id == trader)
+    return session.exec(statement.order_by(Trade.ts.desc()).limit(50)).all()

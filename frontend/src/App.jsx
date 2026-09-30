@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import TradeTable from "./components/TradeTable";
 
 const App = () => {
   const [msg, setMsg] = useState("loading...");
@@ -12,7 +13,12 @@ const App = () => {
     load();
   }, []);
 
-  return <h1>{msg}</h1>;
+  return (
+    <>
+    <h1>{msg}</h1>
+    <TradeTable/>
+    </>
+  )
 };
 
 export default App;

@@ -27,11 +27,11 @@ app.add_middleware(
 
 
 @app.get("/ping")
-async def main():
+def ping():
     import time    
     time.sleep(1)
     return {"message": f"pong"}
 
 @app.get("/trades")
-def list_trades(session: Session = Depends(get_session)):
+def list_trades(session: Session = Depends(get_session)):    
     return session.exec(select(Trade).order_by(Trade.ts.desc()).limit(50)).all()    
